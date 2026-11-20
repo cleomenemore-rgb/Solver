@@ -1,21 +1,21 @@
 # Solver : organisation des chambres
 
 Projet de L3 Informatique MIAGE (Programmation Avancée et Application), réalisé par
-**William Oufahli** et **Cléomène More**.
+**William Ourfahli** et **Cléomène More**.
 
-## L'objectif du projet
+## Présentation
 
-Un groupe de personnes part en voyage et chacune doit avoir sa propre chambre.
-Il y a autant de chambres que de personnes. Chaque personne classe les chambres
-de celle qu'elle préfère à celle qu'elle aime le moins.
+Ce projet permet de répartir un groupe de personnes dans des chambres, avec une chambre par personne. Chaque personne peut exprimer ses préférences et indiquer les personnes avec lesquelles elle entretient une relation.
 
-Certaines personnes ne s'entendent pas : on appelle ça une **relation**.
-Une personne est **jalouse** si elle préfère la chambre de quelqu'un avec qui elle
-a une relation à la sienne.
+L'application propose ensuite une première répartition en attribuant à chaque personne sa meilleure chambre encore disponible, en suivant l'ordre du groupe. Il est ensuite possible d'échanger manuellement deux chambres et de consulter les explications liées à la jalousie. Le dernier échange effectif peut également être annulé.
+
+Le projet propose deux façons d'utiliser l'application :
+- une interface en console, avec des menus et des saisies guidées ;
+- une interface graphique réalisée avec Swing.
 
 Le but du programme est de répartir les chambres en limitant le nombre de personnes jalouses.
 
-## Ce que fait le programme
+## Fonctionnalités principales
 
 - Crée un groupe de 1 à 26 personnes (nommées A, B, C… Z) avec les chambres 1 à n.
 - Permet d'ajouter des relations entre deux personnes (elles marchent dans les deux sens).
@@ -27,6 +27,14 @@ Le but du programme est de répartir les chambres en limitant le nombre de perso
 - Permet d'annuler le dernier échange (un seul niveau d'annulation).
 - Fonctionne de deux façons : en console ou dans une fenêtre Swing.
 
+
+## Technologies utilisées
+
+- **Java 21** : langage de programmation.
+- **Swing** : interface graphique.
+- **Maven** : compilation et gestion du projet.
+- **JUnit 5** : tests automatisés.
+
 ## Comment ça marche ?
 
 La répartition automatique est un algorithme glouton. On passe les personnes dans
@@ -34,6 +42,8 @@ l'ordre (A, B, C…) et chacune reçoit sa chambre préférée parmi celles qui 
 Il est rapide, mais il ne tient pas compte des relations. Il ne garantit donc pas le
 plus petit nombre de jaloux. C'est pour cela que l'on peut ensuite faire des échanges
 à la main et voir si le résultat s'améliore.
+
+## Organisation du projet
 
 Le code est découpé en cinq packages :
 
@@ -63,19 +73,28 @@ Si on échange les chambres de B et C, on obtient `A:1, B:2, C:3, D:4` et il ne 
 Ce scénario est dans `exemples/demo-sujet.txt`.
 
 ## Lancer le projet
+### Prérequis
 
-Il faut un **JDK 21**. Maven (3.9) est utile pour construire le projet.
+- Un JDK 21.
+- Maven 3.9 ou une version compatible.
+- Une connexion Internet lors de la première compilation pour télécharger les dépendances.
 
-```sh
+Depuis le dossier qui contient `pom.xml`, lancer les commandes suivantes :
+
+```bash
 mvn clean verify
-java -jar target/voyage-chambres-0.6.0.jar # console
-java -jar target/voyage-chambres-0.6.0.jar --gui # fenêtre Swing
 ```
 
-On peut aussi rejouer l'exemple (Linux, macOS ou `cmd` sous Windows) :
+Pour démarrer l'interface console :
 
-```sh
-java -jar target/voyage-chambres-0.6.0.jar < exemples/demo-sujet.txt
+```bash
+java -cp target/voyage-chambres-0.6.0.jar app.Main
+```
+
+Pour démarrer l'interface graphique :
+
+```bash
+java -cp target/voyage-chambres-0.6.0.jar app.MainGraphique
 ```
 
 Avec Eclipse : **File > Import > Maven > Existing Maven Projects**, puis clic droit sur
@@ -85,7 +104,7 @@ Les noms se tapent en majuscules (par exemple `A B` pour une relation).
 
 ## Tests
 
-Les tests utilisent JUnit 5 et se lancent avec `mvn clean verify` (199 tests).
+Les tests utilisent JUnit 5 et se lancent avec `mvn clean verify`.
 Ils vérifient les classes du modèle, le solveur, le calcul de jalousie,
 les parcours de la console et les boutons de la fenêtre.
 
@@ -98,5 +117,8 @@ les parcours de la console et les boutons de la fenêtre.
 
 ## Pour aller plus loin
 
-Le dossier `docs/` contient l'étude de complexité du solveur, un schéma UML
-(`Architecture_Partie1.drawio`) et des notes de conception.
+Le dossier `docs` contient notamment :
+- une présentation de l'architecture ;
+- un schéma UML (`Architecture_Partie1.drawio`);
+- une analyse de la complexité de l'algorithme ;
+- des documents de validation et de suivi du projet.
