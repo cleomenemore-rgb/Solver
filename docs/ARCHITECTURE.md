@@ -1,50 +1,80 @@
-# Architecture de la partie 1
+# Architecture du projet
 
-Le schéma `Architecture_Partie1.drawio` contient trois pages : modèle métier, résolution et interfaces enrichies.
-Il présente les attributs et méthodes utiles à la compréhension ; les constructeurs,
-les validations privées et les méthodes equals/hashCode sont omis pour la lisibilité.
-Les flèches pleines représentent des associations ; les flèches en pointillés sont
-des dépendances d'utilisation. Le triangle creux indique l'implémentation d'une interface.
+Le projet est découpé en cinq packages. Chaque package a un rôle précis et les
+dépendances vont toujours dans le même sens : les interfaces (console et Swing) utilisent
+les services, qui utilisent le modèle.
 
-## Modèle
+```text
+app  ->  ui (console + ui.graphique)  ->  service  ->  modele
+                      |                      |
+                      +------> algorithme ---+
+```
 
-- Personne et Chambre sont des valeurs immuables identifiées par nom et numéro.
-- Preferences est un classement immuable : liste ordonnée + map des rangs.
-- Groupe possède des membres et chambres fixes. Les relations et préférences évoluent
-  uniquement par des méthodes validées. Chaque membre peut n'avoir aucune préférence
-  pendant la configuration, puis exactement un classement complet.
-- Affectation possède sa propre map et conserve la bijection lors des échanges.
-  Son constructeur consulte Groupe pour valider le périmètre, sans le stocker.
+Le schéma `Architecture_Partie1.drawio` reprend cette organisation sur trois pages :
+le modèle, la résolution (solveur, calcul et session), puis les deux interfaces.
 
-## Application
+## Le modèle (`modele`)
 
-Main crée les dépendances concrètes. InterfaceConsole dépend du contrat SolveurAffectation,
-du calculateur et du modèle. Elle ne calcule ni les rangs, ni la jalousie, ni l'affectation.
-Son rôle est d'interpréter une ligne, appeler l'opération correspondante et afficher
-le résultat ou une erreur compréhensible. Les flux injectés rendent les menus testables.
+- `Personne` et `Chambre` sont des objets immuables : une personne est identifiée par son nom,
+  une chambre par son numéro.
+- `Preferences` est le classement des chambres d'une personne, de la préférée à la moins aimée.
+  On ne peut plus le modifier une fois créé.
+- `Groupe` contient les personnes, les chambres, les relations entre personnes et les préférences
+  de chacun. Toutes les modifications passent par des méthodes qui vérifient les valeurs avant
+  de changer quoi que ce soit.
+- `Affectation` associe une chambre à chaque personne (une chambre par personne). On peut
+  échanger les chambres de deux personnes, ce qui garde toujours une répartition valide.
 
-SolveurNaif implémente SolveurAffectation ; l'interface permettra de substituer une autre
-stratégie. CalculateurJalousie évalue une affectation sans la modifier. Ces services
-ne connaissent ni Scanner, ni les menus, ni System.out.
+Le modèle ne connaît ni la console ni Swing.
 
-## Erreurs et cycle de vie
+## Le solveur (`algorithme`)
 
-Les méthodes métier refusent les paramètres invalides avant toute mutation.
-La console traduit les erreurs attendues en messages et revient au menu. Elle ne
-capture pas toutes les exceptions indistinctement : un bug de programmation doit
-rester visible aux tests. Une fin d'entrée normale n'est pas une exception.
-Une IOException de la source remonte à Main, qui arrête la session avec un message.
-Les flux sont créés/fournis par l'appelant et ne sont pas fermés par InterfaceConsole.
-La console est conçue pour piloter une session dans un seul thread.
+`SolveurAffectation` est une interface avec une seule méthode, `resoudre(groupe)`.
+`SolveurNaif` l'implémente avec l'algorithme glouton : dans l'ordre du groupe, chaque personne
+prend sa meilleure chambre encore libre. Les interfaces ne connaissent que l'interface
+`SolveurAffectation`, donc on pourrait ajouter un autre algorithme sans les modifier.
 
-## Interfaces enrichies (lot 6)
+## Les services (`service`)
 
-Les deux interfaces délèguent à `SessionAffectation`, qui détient une copie indépendante
-de la répartition. `echanger` et `annuler` renvoient un `BilanEchange` immuable.
-L’historique garde uniquement les deux personnes du dernier échange effectif.
-`PresentationGroupe` produit les textes communs du récapitulatif, des jalousies et des bilans.
-`PanneauApplication` et `TableauGroupe` ne calculent pas les règles de jalousie.
-Les composants Swing sont manipulés sur l’EDT, y compris dans les tests.
-L’interface fige la configuration pendant une session d’affectation ; revenir à
-la configuration abandonne la session. Le service lit le groupe fourni : un appelant
-extérieur ne doit donc pas modifier ce groupe pendant qu’il explore les échanges.
+- `CalculateurJalousie` calcule qui est jaloux et pourquoi, sans rien modifier.
+  Une personne est jalouse si elle préfère la chambre d'un voisin (une personne avec qui elle a
+  une relation) à la sienne.
+- `SessionAffectation` garde la répartition en cours. Elle permet de calculer le coût,
+  d'échanger deux personnes et d'annuler le dernier échange (un seul niveau d'annulation).
+- `BilanEchange` est un petit `record` qui donne le nombre de jaloux avant et après un échange
+  ou une annulation.
+
+La console et la fenêtre Swing utilisent exactement les mêmes services : il n'y a donc pas de
+règle de jalousie écrite deux fois.
+
+## Les interfaces (`ui` et `ui.graphique`)
+
+- `InterfaceConsole` gère les menus et les saisies au clavier. Elle lit les lignes, appelle le
+  modèle et les services, puis affiche le résultat ou un message d'erreur. L'entrée et la sortie
+  sont passées au constructeur (un `Readable` et un `PrintWriter`), ce qui permet de la tester
+  sans clavier.
+- `PresentationGroupe` fabrique les textes communs : récapitulatif du groupe, explications de
+  jalousie et bilan d'un échange. La console et Swing affichent donc les mêmes messages.
+- `ui.graphique.PanneauApplication` est la fenêtre Swing. Elle contient les champs, les boutons et
+  les zones de texte. Chaque bouton appelle le modèle ou `SessionAffectation`, puis la fenêtre
+  se met à jour. Elle ne calcule jamais la jalousie elle-même.
+- `ui.graphique.TableauGroupe` est le modèle du `JTable` : une ligne par personne, avec les
+  colonnes Personne, Préférences, Relations, Chambre et État.
+
+Pendant qu'une répartition est en cours, la configuration du groupe est bloquée dans la
+fenêtre. Le bouton « Revenir à la configuration » abandonne la répartition.
+
+## Le lancement (`app`)
+
+- `Main` crée un `SolveurNaif` et un `CalculateurJalousie`, puis lance la console.
+  Avec l'argument `--gui`, il lance la fenêtre à la place.
+- `MainGraphique` ouvre la fenêtre Swing. Si aucun écran n'est disponible, il affiche
+  un message et s'arrête.
+
+## Gestion des erreurs
+
+Les méthodes du modèle et des services refusent les valeurs invalides en lançant
+`IllegalArgumentException` (argument incorrect) ou `IllegalStateException` (par exemple, des
+préférences manquantes), avant de modifier quoi que ce soit. La console et Swing
+attrapent ces erreurs attendues pour afficher un message et revenir au menu. Une panne de
+lecture (`IOException`) remonte jusqu'à `Main`, qui arrête le programme.

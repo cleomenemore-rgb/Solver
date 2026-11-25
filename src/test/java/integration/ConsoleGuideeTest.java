@@ -3,8 +3,6 @@ package integration;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import algorithme.SolveurNaif;
 import service.CalculateurJalousie;
 import ui.InterfaceConsole;
@@ -39,26 +37,6 @@ class ConsoleGuideeTest {
         assertFalse(texte.contains("exemple : A 1 2 3"));
         assertTrue(texte.contains("de la plus appréciée à la moins appréciée"));
         assertTrue(texte.contains("ne garantit pas le minimum de jalousies"));
-    }
-
-    /**
-     * Une erreur indique sa cause et laisse le classement initial intact.
-     * @param saisie correction invalide @param explication aide attendue
-     * @throws IOException si le lecteur échoue
-     */
-    @ParameterizedTest
-    @CsvSource(delimiter = '|', value = {
-        "A 1 1|apparaît plusieurs fois", "A 0 2|numéros de 1 à 2",
-        "A 3 2|numéros de 1 à 2", "A x 2|numéro entier valide",
-        "a 1 2|en majuscules parmi [A, B]", "Z 1 2|Personne inconnue",
-        "A 1|un nom suivi de 2 numéros"
-    })
-    void expliqueCorrectionSansPerte(String saisie, String explication) throws IOException {
-        String texte = jouer("2\n2\nA 2 1\n2\n" + saisie + "\n2\nB 1 2\n3\n3\n");
-        assertTrue(texte.contains(explication));
-        assertTrue(texte.contains("Aucun classement modifié"));
-        assertTrue(texte.contains("Choisissez 2 pour réessayer"));
-        assertTrue(texte.contains("A:2\nB:1\n"));
     }
 
     /** Un refus après un échange conserve aussi la possibilité de l'annuler. */

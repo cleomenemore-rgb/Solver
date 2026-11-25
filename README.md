@@ -1,7 +1,7 @@
 # Solver : organisation des chambres
 
 Projet de L3 Informatique MIAGE (Programmation Avancée et Application), réalisé par
-**William Ourfahli** et **Cléomène More**.
+**Cléomène More** et **William Ourfahli**.
 
 ## Présentation
 
@@ -48,9 +48,9 @@ plus petit nombre de jaloux. C'est pour cela que l'on peut ensuite faire des éc
 Le code est découpé en cinq packages :
 
 - `modele` qui contient : `Personne`, `Chambre`, `Preferences`, `Groupe`, `Affectation`
-- `algorithme` qui contient l'interface `SolveurAffectation` et le solveur glouton `SolveurNaif` 
-- `service` qui s'occupe de : calcul de la jalousie, session d'échanges et d'annulation, bilan d'un échange
-- `ui` : la console, les textes communs, et la fenêtre Swing dans `ui.graphique`
+- `algorithme` qui contient l'interface `SolveurAffectation` et le solveur glouton `SolveurNaif`
+- `service` qui s'occupe de : calcul de la jalousie (`CalculateurJalousie`), session d'échanges et d'annulation (`SessionAffectation`), bilan d'un échange (`BilanEchange`)
+- `ui` : la console (`InterfaceConsole`), les textes communs (`PresentationGroupe`), et la fenêtre Swing dans `ui.graphique` (`PanneauApplication`, `TableauGroupe`)
 - `app` : les deux points d'entrée : `Main` (console) et `MainGraphique` (fenêtre)
 
 Le modèle ne dépend ni de la console ni de Swing. Les deux interfaces utilisent
@@ -98,7 +98,7 @@ java -cp target/voyage-chambres-0.6.0.jar app.MainGraphique
 ```
 
 Avec Eclipse : **File > Import > Maven > Existing Maven Projects**, puis clic droit sur
-`src/main/app/Main.java` > **Run As > Java Application**.
+`src/main/app/Main.java` (ou `MainGraphique.java`) > **Run As > Java Application**.
 Dans la console, commencer par taper un nombre de personnes entre 1 et 26.
 Les noms se tapent en majuscules (par exemple `A B` pour une relation).
 
@@ -106,7 +106,8 @@ Les noms se tapent en majuscules (par exemple `A B` pour une relation).
 
 Les tests utilisent JUnit 5 et se lancent avec `mvn clean verify`.
 Ils vérifient les classes du modèle, le solveur, le calcul de jalousie,
-les parcours de la console et les boutons de la fenêtre.
+la session d'échanges et les parcours de la console. La fenêtre Swing n'a pas de test
+automatique : elle se vérifie à la main en lançant `MainGraphique`.
 
 ## Limites
 
@@ -117,8 +118,10 @@ les parcours de la console et les boutons de la fenêtre.
 
 ## Pour aller plus loin
 
-Le dossier `docs` contient notamment :
-- une présentation de l'architecture ;
-- un schéma UML (`Architecture_Partie1.drawio`);
-- une analyse de la complexité de l'algorithme ;
-- des documents de validation et de suivi du projet.
+Le dossier `docs` contient :
+- une présentation de l'architecture (`ARCHITECTURE.md`) ;
+- un schéma UML (`Architecture_Partie1.drawio`) ;
+- une analyse de la complexité de l'algorithme (`COMPLEXITE.md`) ;
+- un déroulé de démonstration (`DEMONSTRATION.md`).
+
+Le dossier `exemples` contient les saisies des deux scénarios de démonstration.

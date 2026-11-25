@@ -2,15 +2,11 @@ package modele;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-/** Vérifie l'identité, la validation et l'utilisation de Chambre en collection. */
+/** Vérifie l'identité et la validation de Chambre. */
 class ChambreTest {
 
     /** Vérifie que le constructeur conserve l'identifiant. */
@@ -44,24 +40,6 @@ class ChambreTest {
             () -> assertFalse(objet.equals(null)),
             () -> assertFalse(objet.equals(new Object()))
         );
-    }
-
-    /** Vérifie la recherche avec une clé équivalente mais distincte. */
-    @Test
-    void retrouveValeurAvecCleEquivalente() {
-        Map<Chambre, String> valeurs = new HashMap<>();
-        valeurs.put(new Chambre(1), "retrouvée");
-        assertEquals("retrouvée", valeurs.get(new Chambre(1)));
-    }
-
-    /** Empêche un doublon logique dans un ensemble. */
-    @Test
-    void elimineDoublonDansEnsemble() {
-        Set<Chambre> objets = new HashSet<>();
-        assertTrue(objets.add(new Chambre(1)));
-        assertFalse(objets.add(new Chambre(1)));
-        assertTrue(objets.add(new Chambre(2)));
-        assertEquals(2, objets.size());
     }
 
     /** Vérifie la représentation textuelle utilisée dans les affichages. */

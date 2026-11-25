@@ -1,18 +1,31 @@
-# Démonstration de la partie 1
+# Démonstration
 
 ## Préparation
 
-Dans Eclipse, lancer tous les tests, puis Main comme application Java.
-Au terminal, construire avec `mvn clean verify`, puis lancer le JAR.
-Le fichier `exemples/demo-sujet.txt` contient les réponses, une ligne par saisie.
-Il peut être rejoué par redirection avec cmd ou un shell Unix ; il ne constitue
-pas encore un fichier d'import métier de la partie 2.
+Dans le dossier qui contient `pom.xml` :
 
-## Parcours principal (environ cinq minutes)
+```bash
+mvn clean verify
+java -cp target/voyage-chambres-0.6.0.jar app.Main
+```
+
+Pour la fenêtre Swing, on remplace `app.Main` par `app.MainGraphique`.
+On peut aussi lancer `Main` ou `MainGraphique` directement depuis Eclipse.
+
+Les fichiers du dossier `exemples` contiennent les réponses à taper, une par ligne. On peut les
+rejouer sans rien saisir :
+
+```bash
+java -cp target/voyage-chambres-0.6.0.jar app.Main < exemples/demo-sujet.txt
+```
+
+## Scénario principal (environ cinq minutes)
+
+C'est le scénario de `exemples/demo-sujet.txt`.
 
 1. Créer 4 personnes : A, B, C et D.
 2. Ajouter les relations A B, B C et B D avec l'option 1 du premier menu.
-3. Enregistrer les préférences avec l'option 2, une personne par action :
+3. Enregistrer les préférences avec l'option 2, une personne à la fois :
 
 ```text
 A 1 2 3 4
@@ -21,7 +34,7 @@ C 3 2 1 4
 D 1 4 2 3
 ```
 
-4. Choisir 3 pour terminer la configuration. L'affectation gloutonne attendue est :
+4. Choisir 3 pour terminer la configuration. Le solveur glouton donne :
 
 ```text
 A:1
@@ -31,34 +44,27 @@ D:4
 ```
 
 5. Choisir 2 : le coût est 2, car B et C sont jalouses.
-6. Choisir 1 et saisir `B C`. L'affectation devient A:1, B:2, C:3, D:4.
-7. Choisir 2 : le coût devient 1, car seule B est jalouse.
+6. Choisir 1 et saisir `B C`. La répartition devient A:1, B:2, C:3, D:4.
+7. Choisir 2 : le coût passe à 1, car il ne reste que B de jalouse.
 8. Choisir 3 pour quitter.
 
-Expliquer que le solveur est rapide, mais ne minimise pas directement la jalousie.
-Le tableau de disponibilité et la borne de 351 vérifications pour 26 personnes
-sont justifiés dans COMPLEXITE.md.
+Cet exemple montre que le solveur est rapide mais ne cherche pas le minimum de jaloux : un
+échange à la main a amélioré le résultat. Le tableau de disponibilité et la borne de 351
+vérifications pour 26 personnes sont expliqués dans `COMPLEXITE.md`.
 
-## Vérifications supplémentaires à montrer
+## Explications et annulation
 
-- Saisir `abc`, `0` ou `27` au nombre de personnes, puis une valeur correcte.
-- Terminer la configuration trop tôt : les noms sans préférences sont affichés.
-- Essayer `A 1 1 3 4`, puis un classement valide : aucun état incohérent n'est enregistré.
-- Corriger un classement déjà saisi et vérifier que le nouveau est utilisé.
-- Ajouter deux fois A B : la relation reste unique et symétrique.
-- Tenter un échange `A Z` : l'affectation est conservée.
-- Essayer un choix de menu inexistant ou du texte : le menu reste utilisable.
+Le fichier `exemples/demo-lot6.txt` montre un deuxième parcours avec 2 personnes : récapitulatif
+du groupe, échange de A et B, explications de jalousie, échange refusé (`A Z`) puis annulation du
+dernier échange. La même démonstration se fait à la main dans la fenêtre Swing avec les boutons
+« Échanger » et « Annuler le dernier échange ».
 
-## Points à expliquer au chargé de TP
+## Cas d'erreur à essayer
 
-- Répartition des responsabilités entre modèle, services, solveur et interface.
-- Encapsulation des collections et validation avant mutation.
-- Tests des règles métier et des sessions utilisateur en mémoire.
-- Différence entre temps de calcul et qualité de la solution.
-- Aucun import/export de groupe en partie 1 ; ces fonctions viendront ensuite.
-
-
-## Extension lot 6
-
-Voir AMELIORATIONS_LOT6.md et exemples/demo-lot6.txt pour les explications,
-le récapitulatif, le bilan et l’annulation. Lancer MainGraphique pour la fenêtre Swing.
+- Saisir `abc`, `0` ou `27` comme nombre de personnes, puis une valeur correcte.
+- Terminer la configuration trop tôt : les noms qui n'ont pas encore de préférences sont affichés.
+- Essayer `A 1 1 3 4`, puis un classement valide : rien n'est enregistré avec le classement faux.
+- Corriger un classement déjà saisi : c'est le nouveau qui est utilisé.
+- Ajouter deux fois la relation A B : elle n'existe qu'une fois et marche dans les deux sens.
+- Tenter un échange `A Z` : la répartition ne change pas.
+- Choisir un numéro de menu qui n'existe pas, ou taper du texte : le menu reste utilisable.

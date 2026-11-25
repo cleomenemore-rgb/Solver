@@ -1,4 +1,28 @@
+# Fichiers générés par Maven
 target/
+
+# Fichiers propres à Eclipse
 .classpath
 .project
 .settings/
+bin/
+
+# Autres IDE
+.idea/
+*.iml
+.vscode/
+.vs/
+nbproject/
+
+# Fichiers système
+.DS_Store
+._*
+__MACOSX/
+Thumbs.db
+desktop.ini
+
+# Fichiers temporaires
+*.log
+*.class
+*.tmp
+*~

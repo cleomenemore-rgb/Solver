@@ -5,8 +5,8 @@
   <groupId>fr.univ.paris.voyage</groupId>
   <artifactId>voyage-chambres</artifactId>
   <version>0.6.0</version>
-  <name>Organisation des chambres - Lot 6</name>
-  <description>Partie 1 : console guidée, interface Swing, explications de jalousie et annulation.</description>
+  <name>Organisation des chambres</name>
+  <description>Répartition de personnes dans des chambres : console guidée, interface Swing, explications de jalousie et annulation.</description>
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

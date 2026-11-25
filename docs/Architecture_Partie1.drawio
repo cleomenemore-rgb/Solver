@@ -5,11 +5,11 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="PARTIE 1 — Modèle métier&#10;Attributs principaux et opérations publiques ; constructeurs et validations privées omis." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=16;" vertex="1" parent="1">
+        <mxCell id="title" value="Modèle métier (package modele)&#10;Attributs principaux et opérations publiques ; constructeurs et validations privées omis." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=16;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="50" y="25" width="1250" height="55" />
         </mxCell>
-        <mxCell id="g" value="&lt;b&gt;Groupe&lt;/b&gt;&lt;hr&gt;- personnesParNom : Map&amp;lt;String, Personne&amp;gt;&lt;br&gt;- chambres : List&amp;lt;Chambre&amp;gt;&lt;br&gt;- relations : Map&amp;lt;Personne, Set&amp;lt;Personne&amp;gt;&amp;gt;&lt;br&gt;- preferencesParPersonne : Map&amp;lt;Personne, Preferences&amp;gt;&lt;hr&gt;+ getPersonne(nom) : Personne&lt;br&gt;+ ajouterRelation(a, b) : void&lt;br&gt;+ definirPreferences(p, preferences) : void&lt;br&gt;+ personnesSansPreferences() : List&amp;lt;Personne&amp;gt;&lt;br&gt;+ estComplet() : boolean" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#dae8fc;strokeColor=#536579;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="80" y="120" width="540" height="300" />
+        <mxCell id="g" value="&lt;b&gt;Groupe&lt;/b&gt;&lt;hr&gt;- personnesParNom : Map&amp;lt;String, Personne&amp;gt;&lt;br&gt;- chambres : List&amp;lt;Chambre&amp;gt;&lt;br&gt;- relations : Map&amp;lt;Personne, Set&amp;lt;Personne&amp;gt;&amp;gt;&lt;br&gt;- preferencesParPersonne : Map&amp;lt;Personne, Preferences&amp;gt;&lt;hr&gt;+ getPersonne(nom) : Personne&lt;br&gt;+ getPersonnes() : List&amp;lt;Personne&amp;gt;&lt;br&gt;+ getChambres() : List&amp;lt;Chambre&amp;gt;&lt;br&gt;+ ajouterRelation(a, b) : void&lt;br&gt;+ getVoisins(p) : Set&amp;lt;Personne&amp;gt;&lt;br&gt;+ definirPreferences(p, preferences) : void&lt;br&gt;+ getPreferences(p) : Preferences&lt;br&gt;+ personnesSansPreferences() : List&amp;lt;Personne&amp;gt;&lt;br&gt;+ estComplet() : boolean" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#dae8fc;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="80" y="120" width="540" height="380" />
         </mxCell>
         <mxCell id="a" value="&lt;b&gt;Affectation&lt;/b&gt;&lt;hr&gt;- chambresParPersonne : Map&amp;lt;Personne, Chambre&amp;gt;&lt;hr&gt;+ chambreDe(personne) : Chambre&lt;br&gt;+ echanger(a, b) : void&lt;br&gt;+ estValidePour(groupe) : boolean" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#dae8fc;strokeColor=#536579;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="850" y="120" width="470" height="210" />
@@ -47,110 +47,137 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="2 Application" id="2">
-    <mxGraphModel dx="1450" dy="1000" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1450" pageHeight="1000">
+  <diagram name="2 Résolution et services" id="2">
+    <mxGraphModel dx="1450" dy="1000" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1800" pageHeight="900">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="PARTIE 1 — Application et dépendances&#10;Flèche pointillée : utilise ; triangle creux : implémente ; flèche pleine : référence conservée." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="50" y="25" width="1250" height="55" />
+        <mxCell id="t" value="Résolution et services (packages algorithme et service)&#10;Flèche pointillée : utilise ; triangle creux : implémente ; flèche pleine : référence conservée dans un attribut." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="20" width="1500" height="55" />
         </mxCell>
-        <mxCell id="main" value="&lt;b&gt;app.Main&lt;/b&gt;&lt;hr&gt;&lt;hr&gt;+ main(args : String[]) : void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#fff2cc;strokeColor=#536579;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="550" y="110" width="360" height="130" />
+        <mxCell id="itf" value="&lt;b&gt;« interface » SolveurAffectation&lt;/b&gt;&lt;hr&gt;+ resoudre(groupe : Groupe) : Affectation" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#d5e8d4;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="120" width="420" height="140" />
         </mxCell>
-        <mxCell id="ui" value="&lt;b&gt;ui.InterfaceConsole&lt;/b&gt;&lt;hr&gt;- entree : Scanner&lt;br&gt;- sortie : PrintWriter&lt;br&gt;- solveur : SolveurAffectation&lt;br&gt;- calculateur : CalculateurJalousie&lt;hr&gt;+ executer() : void {throws IOException}" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#fff2cc;strokeColor=#536579;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="520" y="340" width="420" height="230" />
+        <mxCell id="naif" value="&lt;b&gt;SolveurNaif&lt;/b&gt;&lt;hr&gt;+ resoudre(groupe : Groupe) : Affectation" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#d5e8d4;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="400" width="420" height="140" />
         </mxCell>
-        <mxCell id="interface" value="&lt;b&gt;« interface » algorithme.SolveurAffectation&lt;/b&gt;&lt;hr&gt;&lt;hr&gt;+ resoudre(groupe : Groupe) : Affectation" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#d5e8d4;strokeColor=#536579;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="50" y="350" width="360" height="150" />
+        <mxCell id="sess" value="&lt;b&gt;SessionAffectation&lt;/b&gt;&lt;hr&gt;- groupe : Groupe&lt;br&gt;- affectation : Affectation&lt;br&gt;- calculateur : CalculateurJalousie&lt;br&gt;- dernierA, dernierB : Personne&lt;hr&gt;+ chambreDe(personne) : Chambre&lt;br&gt;+ cout() : int&lt;br&gt;+ voisinsJalouses(personne) : Set&amp;lt;Personne&amp;gt;&lt;br&gt;+ echanger(a, b) : BilanEchange&lt;br&gt;+ peutAnnuler() : boolean&lt;br&gt;+ annuler() : BilanEchange" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#e1d5e7;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="600" y="120" width="540" height="340" />
         </mxCell>
-        <mxCell id="naif" value="&lt;b&gt;algorithme.SolveurNaif&lt;/b&gt;&lt;hr&gt;&lt;hr&gt;+ resoudre(groupe : Groupe) : Affectation" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#d5e8d4;strokeColor=#536579;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="50" y="650" width="360" height="150" />
+        <mxCell id="calc" value="&lt;b&gt;CalculateurJalousie&lt;/b&gt;&lt;hr&gt;+ estJalouse(personne, groupe, affectation) : boolean&lt;br&gt;+ personnesJalouses(groupe, affectation) : Set&amp;lt;Personne&amp;gt;&lt;br&gt;+ calculerCout(groupe, affectation) : int&lt;br&gt;+ voisinsJalouses(personne, groupe, affectation) : Set&amp;lt;Personne&amp;gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#e1d5e7;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1220" y="120" width="540" height="200" />
         </mxCell>
-        <mxCell id="calc" value="&lt;b&gt;service.CalculateurJalousie&lt;/b&gt;&lt;hr&gt;&lt;hr&gt;+ estJalouse(personne, groupe, affectation) : boolean&lt;br&gt;+ personnesJalouses(groupe, affectation) : Set&amp;lt;Personne&amp;gt;&lt;br&gt;+ calculerCout(groupe, affectation) : int" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#e1d5e7;strokeColor=#536579;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="1030" y="350" width="370" height="205" />
+        <mxCell id="bil" value="&lt;b&gt;« record » BilanEchange&lt;/b&gt;&lt;hr&gt;avant : int&lt;br&gt;apres : int&lt;br&gt;modification : boolean" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#e1d5e7;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1220" y="400" width="540" height="140" />
         </mxCell>
-        <mxCell id="model" value="&lt;b&gt;modele&lt;/b&gt;&lt;hr&gt;Groupe, Personne, Chambre&lt;br&gt;Preferences, Affectation&lt;hr&gt;Validation et état métier" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#dae8fc;strokeColor=#536579;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="650" y="750" width="400" height="150" />
+        <mxCell id="mod" value="&lt;b&gt;modele&lt;/b&gt;&lt;hr&gt;Groupe, Personne, Chambre, Preferences, Affectation&lt;hr&gt;Données et règles de validation (aucune dépendance vers les autres packages)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#dae8fc;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="600" y="660" width="1160" height="130" />
         </mxCell>
-        <mxCell id="main-ui" value="crée et lance" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="main" target="ui">
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=block;endFill=0;" edge="1" parent="1" source="naif" target="itf">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="ui-i" value="solveur" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;" edge="1" parent="1" source="ui" target="interface">
+        <mxCell id="e2" value="appelle resoudre" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="sess" target="itf">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="ui-c" value="calculateur" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;" edge="1" parent="1" source="ui" target="calc">
+        <mxCell id="e3" value="calculateur" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;" edge="1" parent="1" source="sess" target="calc">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="naif-i" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=block;endFill=0;" edge="1" parent="1" source="naif" target="interface">
+        <mxCell id="e4" value="crée" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="sess" target="bil">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="naif-m" value="lit le groupe ; crée une affectation" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="naif" target="model">
+        <mxCell id="e5" value="groupe, affectation" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;" edge="1" parent="1" source="sess" target="mod">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="ui-m" value="configure et échange" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="ui" target="model">
+        <mxCell id="e6" value="lit le groupe ; crée une affectation" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="naif" target="mod">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="calc-m" value="évalue sans modifier" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="calc" target="model">
+        <mxCell id="e7" value="évalue sans modifier" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="calc" target="mod">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="construction" value="Main fournit également un SolveurNaif et un CalculateurJalousie à la console.&#10;Les services ne dépendent jamais de la console. Entrées et sorties injectées pour les tests." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="50" y="925" width="1300" height="60" />
+        <mxCell id="note" value="SessionAffectation copie le résultat du solveur : elle garde sa propre affectation et un seul niveau d'annulation.&#10;CalculateurJalousie ne modifie ni le groupe ni l'affectation. Aucun de ces services ne connaît la console ni Swing." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="830" width="1700" height="60" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram name="3 Interfaces enrichies" id="lot6">
-    <mxGraphModel page="1" pageWidth="1200" pageHeight="950">
+  <diagram name="3 Interfaces console et Swing" id="3">
+    <mxGraphModel dx="1450" dy="1000" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1900" pageHeight="1150">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="console" value="InterfaceConsole&#10;+ executer()" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="50" y="100" width="280" height="165" />
+        <mxCell id="t" value="Interfaces console et Swing (packages app, ui et ui.graphique)&#10;Les deux interfaces utilisent les mêmes services : il n'y a pas de règle de jalousie dans l'interface graphique." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="20" width="1700" height="55" />
         </mxCell>
-        <mxCell id="gui" value="PanneauApplication&#10;+ événements Swing" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="450" y="100" width="280" height="165" />
+        <mxCell id="main" value="&lt;b&gt;app.Main&lt;/b&gt;&lt;hr&gt;+ main(args : String[]) : void&lt;br&gt;sans argument : console ; --gui : fenêtre" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#fff2cc;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="110" width="400" height="140" />
         </mxCell>
-        <mxCell id="presentation" value="PresentationGroupe&#10;+ configuration()&#10;+ jalousies()&#10;+ personne()&#10;+ bilan()" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="850" y="100" width="280" height="165" />
+        <mxCell id="maing" value="&lt;b&gt;app.MainGraphique&lt;/b&gt;&lt;hr&gt;+ main(args : String[]) : void&lt;br&gt;ouvre une JFrame sur le thread Swing" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#fff2cc;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1160" y="110" width="420" height="140" />
         </mxCell>
-        <mxCell id="session" value="SessionAffectation&#10;+ chambreDe() : Chambre&#10;+ cout() : int&#10;+ voisinsJalouses() : Set&#10;+ echanger() : BilanEchange&#10;+ annuler() : BilanEchange" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="450" y="380" width="280" height="165" />
+        <mxCell id="cons" value="&lt;b&gt;ui.InterfaceConsole&lt;/b&gt;&lt;hr&gt;- entree : Scanner&lt;br&gt;- sortie : PrintWriter&lt;br&gt;- solveur : SolveurAffectation&lt;br&gt;- calculateur : CalculateurJalousie&lt;hr&gt;+ executer() : void {throws IOException}" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#fff2cc;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="360" width="400" height="230" />
         </mxCell>
-        <mxCell id="bilan" value="BilanEchange «record»&#10;avant : int&#10;apres : int&#10;modification : boolean" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="850" y="380" width="280" height="165" />
+        <mxCell id="pres" value="&lt;b&gt;ui.PresentationGroupe&lt;/b&gt;&lt;hr&gt;+ configuration(groupe) : String&lt;br&gt;+ personne(personne, session) : String&lt;br&gt;+ jalousies(groupe, session) : String&lt;br&gt;+ bilan(bilan) : String" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#fff2cc;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="620" y="360" width="380" height="200" />
         </mxCell>
-        <mxCell id="affectation" value="Affectation&#10;Répartition et échanges" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="50" y="680" width="280" height="165" />
+        <mxCell id="pan" value="&lt;b&gt;ui.graphique.PanneauApplication&lt;/b&gt;&lt;hr&gt;extends JPanel&lt;br&gt;- solveur : SolveurAffectation&lt;br&gt;- calculateur : CalculateurJalousie&lt;br&gt;- groupe : Groupe&lt;br&gt;- session : SessionAffectation&lt;br&gt;- modele : TableauGroupe&lt;br&gt;boutons, listes déroulantes et zones de texte Swing&lt;hr&gt;+ PanneauApplication(solveur, calculateur)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#fff2cc;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1160" y="360" width="420" height="300" />
         </mxCell>
-        <mxCell id="calculateur" value="CalculateurJalousie&#10;Coût et voisins jalousés" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="450" y="680" width="280" height="165" />
+        <mxCell id="tab" value="&lt;b&gt;ui.graphique.TableauGroupe&lt;/b&gt;&lt;hr&gt;extends AbstractTableModel&lt;br&gt;colonnes : Personne, Préférences, Relations, Chambre, État&lt;hr&gt;+ actualiser(groupe, session) : void" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#fff2cc;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1160" y="760" width="420" height="170" />
         </mxCell>
-        <mxCell id="solveur" value="SolveurAffectation «interface»&#10;+ resoudre(Groupe) : Affectation" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="850" y="680" width="280" height="165" />
+        <mxCell id="si" value="&lt;b&gt;« interface » SolveurAffectation&lt;/b&gt;&lt;hr&gt;+ resoudre(groupe) : Affectation" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#d5e8d4;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="990" width="280" height="110" />
         </mxCell>
-        <mxCell id="e0" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;" edge="1" parent="1" source="console" target="session">
+        <mxCell id="cj" value="&lt;b&gt;CalculateurJalousie&lt;/b&gt;&lt;hr&gt;calcule le coût et les voisins jalousés" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#e1d5e7;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="400" y="990" width="280" height="110" />
+        </mxCell>
+        <mxCell id="sa" value="&lt;b&gt;SessionAffectation&lt;/b&gt;&lt;hr&gt;échanger, annuler, cout" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#e1d5e7;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="740" y="990" width="280" height="110" />
+        </mxCell>
+        <mxCell id="be" value="&lt;b&gt;« record » BilanEchange&lt;/b&gt;&lt;hr&gt;avant, apres, modification" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#e1d5e7;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="990" width="280" height="110" />
+        </mxCell>
+        <mxCell id="mo" value="&lt;b&gt;modele&lt;/b&gt;&lt;hr&gt;Groupe, Personne, Chambre,&lt;br&gt;Preferences, Affectation" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=12;fontSize=14;fillColor=#dae8fc;strokeColor=#536579;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1420" y="990" width="360" height="110" />
+        </mxCell>
+        <mxCell id="e1" value="crée et lance" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="main" target="cons">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;" edge="1" parent="1" source="gui" target="session">
+        <mxCell id="e2" value="avec --gui" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="main" target="maing">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;" edge="1" parent="1" source="console" target="presentation">
+        <mxCell id="e3" value="crée" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="maing" target="pan">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;" edge="1" parent="1" source="gui" target="presentation">
+        <mxCell id="e4" value="solveur" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;" edge="1" parent="1" source="cons" target="si">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;" edge="1" parent="1" source="session" target="bilan">
+        <mxCell id="e5" value="calculateur" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;exitX=0.75;exitY=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="cons" target="cj">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;" edge="1" parent="1" source="session" target="affectation">
+        <mxCell id="e6" value="crée la session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;exitX=1;exitY=0.75;entryX=0.25;entryY=0;" edge="1" parent="1" source="cons" target="sa">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;" edge="1" parent="1" source="session" target="calculateur">
+        <mxCell id="e7" value="affiche" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="cons" target="pres">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;" edge="1" parent="1" source="session" target="solveur">
+        <mxCell id="e8" value="affiche" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="pan" target="pres">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" value="modele (JTable)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;" edge="1" parent="1" source="pan" target="tab">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e10" value="session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;exitX=0;exitY=0.9;entryX=0.75;entryY=0;" edge="1" parent="1" source="pan" target="sa">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e11" value="groupe" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;endArrow=open;endFill=0;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="pan" target="mo">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e12" value="lit la session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;exitX=0.25;exitY=1;entryX=0.9;entryY=0;" edge="1" parent="1" source="tab" target="sa">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e13" value="lit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=13;labelBackgroundColor=#ffffff;dashed=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="pres" target="be">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
       </root>

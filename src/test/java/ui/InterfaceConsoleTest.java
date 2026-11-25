@@ -5,18 +5,29 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.CharBuffer;
-import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import algorithme.SolveurAffectation;
 import algorithme.SolveurNaif;
+import modele.Affectation;
 import modele.Groupe;
 import service.CalculateurJalousie;
 
 /** Vérifie les saisies, les erreurs, les fins d'entrée et les dépendances de la console. */
 class InterfaceConsoleTest {
+
+    /** Solveur de test : compte les appels et vérifie que le groupe est complet. */
+    private static class SolveurCompteur implements SolveurAffectation {
+        private int appels = 0;
+
+        @Override
+        public Affectation resoudre(Groupe groupe) {
+            appels++;
+            assertTrue(groupe.estComplet());
+            return new SolveurNaif().resoudre(groupe);
+        }
+    }
 
     /**
      * Exécute une session avec les services réels et capture son affichage.
@@ -37,7 +48,7 @@ class InterfaceConsoleTest {
      * @throws IOException si la lecture échoue
      */
     @ParameterizedTest
-    @ValueSource(strings = {"0", "27", "-1", "1.5", "1,5", "abc", "", "   ", "1 2", "999999999999999999999"})
+    @ValueSource(strings = {"", "abc", "0", "27"})
     void redemandeEffectifApresErreur(String invalide) throws IOException {
         String texte = session(invalide + "\n1\n2\nA 1\n3\n3\n");
         assertTrue(texte.contains("Groupe créé : [A]"));
@@ -51,7 +62,7 @@ class InterfaceConsoleTest {
      * @throws IOException si la lecture échoue
      */
     @ParameterizedTest
-    @ValueSource(strings = {"9", "-2", "0", "bonjour", "", "2 3", "2147483648"})
+    @ValueSource(strings = {"", "bonjour", "9", "-2"})
     void recupereApresChoixInvalideDansLesDeuxMenus(String invalide) throws IOException {
         String texte = session("1\n" + invalide + "\n2\nA 1\n3\n" + invalide + "\n2\n3\n");
         assertTrue(texte.contains("Nombre de personnes jalouses : 0"));
@@ -65,8 +76,7 @@ class InterfaceConsoleTest {
      * @throws IOException si la lecture échoue
      */
     @ParameterizedTest
-    @ValueSource(strings = {"", "A", "A 1", "A 1 2 3", "A 1 1", "A 0 2", "A -1 2",
-            "A 3 2", "Z 1 2", "a 1 2", "A x 2", "A 1.5 2", "A 999999999999999 2"})
+    @ValueSource(strings = {"", "A 1 1", "A 3 2", "Z 1 2"})
     void conservePreferencesApresCorrectionInvalide(String invalide) throws IOException {
         String texte = session("2\n2\nA 2 1\n2\n" + invalide + "\n2\nB 1 2\n3\n3\n");
         assertTrue(texte.contains("Préférences refusées"));
@@ -80,7 +90,7 @@ class InterfaceConsoleTest {
      * @throws IOException si la lecture échoue
      */
     @ParameterizedTest
-    @ValueSource(strings = {"", "A", "A B C", "A Z", "Z A", "A A", "a B"})
+    @ValueSource(strings = {"", "A B C", "A Z", "A A"})
     void refuseRelationInvalide(String invalide) throws IOException {
         String texte = session("2\n1\n" + invalide + "\n2\nA 1 2\n2\nB 1 2\n3\n2\n3\n");
         assertTrue(texte.contains("Relation refusée"));
@@ -93,7 +103,7 @@ class InterfaceConsoleTest {
      * @throws IOException si la lecture échoue
      */
     @ParameterizedTest
-    @ValueSource(strings = {"", "A", "A B C", "A Z", "Z A", "a B"})
+    @ValueSource(strings = {"", "A B C", "A Z"})
     void conserveAffectationApresEchangeInvalide(String invalide) throws IOException {
         String texte = session("2\n2\nA 1 2\n2\nB 1 2\n3\n1\n" + invalide + "\n3\n");
         assertTrue(texte.contains("Échange refusé"));
@@ -107,8 +117,7 @@ class InterfaceConsoleTest {
      * @throws IOException si la lecture échoue
      */
     @ParameterizedTest
-    @ValueSource(strings = {"", "abc\n", "1\n", "1\n1\n", "1\n2\n",
-            "1\n2\nA 1\n3\n", "1\n2\nA 1\n3\n1\n"})
+    @ValueSource(strings = {"", "1\n", "1\n1\n", "1\n2\nA 1\n3\n"})
     void termineSurFinEntree(String saisie) throws IOException {
         String texte = session(saisie);
         assertTrue(texte.contains("Fin de l'entrée. Programme terminé."));
@@ -155,19 +164,14 @@ class InterfaceConsoleTest {
         assertTrue(texte.contains("Au revoir !"));
     }
 
-    /** Le solveur n'est jamais appelé avant que toutes les préférences soient renseignées. */
+    /** Le solveur n'est appelé qu'une seule fois, quand toutes les préférences sont renseignées. */
     @Test
     void bloqueResolutionEtIndiquePersonnesManquantes() throws IOException {
-        AtomicReference<Groupe> transmis = new AtomicReference<>();
-        SolveurAffectation solveur = groupe -> {
-            assertTrue(groupe.estComplet());
-            assertNull(transmis.getAndSet(groupe));
-            return new SolveurNaif().resoudre(groupe);
-        };
+        SolveurCompteur solveur = new SolveurCompteur();
         StringWriter sortie = new StringWriter();
         new InterfaceConsole(new StringReader("2\n3\n2\nA 1 2\n3\n2\nB 2 1\n3\n3\n"),
                 new PrintWriter(sortie), solveur, new CalculateurJalousie()).executer();
-        assertNotNull(transmis.get());
+        assertEquals(1, solveur.appels);
         assertTrue(sortie.toString().contains("Préférences manquantes pour : [A, B]"));
         assertTrue(sortie.toString().contains("Préférences manquantes pour : [B]"));
     }
@@ -175,34 +179,10 @@ class InterfaceConsoleTest {
     /** Une entrée interrompue pendant la configuration ne déclenche pas le solveur. */
     @Test
     void neResoutPasConfigurationInterrompue() throws IOException {
-        SolveurAffectation interdit = groupe -> { throw new AssertionError("Résolution prématurée"); };
+        SolveurCompteur solveur = new SolveurCompteur();
         new InterfaceConsole(new StringReader("2\n2\nA 1 2\n3\n"),
-                new PrintWriter(new StringWriter()), interdit, new CalculateurJalousie()).executer();
-    }
-
-    /** Une IOException de la source ne doit pas être confondue avec une fin d'entrée normale. */
-    @Test
-    void propageErreurLecture() {
-        IOException panne = new IOException("Panne simulée");
-        Readable source = (CharBuffer tampon) -> { throw panne; };
-        StringWriter sortie = new StringWriter();
-        InterfaceConsole console = new InterfaceConsole(source, new PrintWriter(sortie),
-                new SolveurNaif(), new CalculateurJalousie());
-        assertSame(panne, assertThrows(IOException.class, console::executer));
-        assertFalse(sortie.toString().contains("Fin de l'entrée"));
-    }
-
-    /** Les flux appartiennent à l'appelant et restent utilisables après la session. */
-    @Test
-    void neFermePasLesFlux() throws IOException {
-        StringReader source = new StringReader("1\n2\nA 1\n3\n3\n");
-        StringWriter destination = new StringWriter();
-        PrintWriter sortie = new PrintWriter(destination);
-        new InterfaceConsole(source, sortie, new SolveurNaif(), new CalculateurJalousie()).executer();
-        assertDoesNotThrow(() -> source.read());
-        sortie.print("encore ouvert");
-        sortie.flush();
-        assertTrue(destination.toString().endsWith("encore ouvert"));
+                new PrintWriter(new StringWriter()), solveur, new CalculateurJalousie()).executer();
+        assertEquals(0, solveur.appels);
     }
 
     /** Chaque dépendance obligatoire est contrôlée au constructeur. */

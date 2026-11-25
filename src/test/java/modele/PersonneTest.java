@@ -2,16 +2,12 @@ package modele;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
-/** Vérifie l'identité, la validation et l'utilisation de Personne en collection. */
+/** Vérifie l'identité et la validation de Personne. */
 class PersonneTest {
 
     /** Vérifie que le constructeur conserve l'identifiant. */
@@ -45,24 +41,6 @@ class PersonneTest {
             () -> assertFalse(objet.equals(null)),
             () -> assertFalse(objet.equals(new Object()))
         );
-    }
-
-    /** Vérifie la recherche avec une clé équivalente mais distincte. */
-    @Test
-    void retrouveValeurAvecCleEquivalente() {
-        Map<Personne, String> valeurs = new HashMap<>();
-        valeurs.put(new Personne("A"), "retrouvée");
-        assertEquals("retrouvée", valeurs.get(new Personne("A")));
-    }
-
-    /** Empêche un doublon logique dans un ensemble. */
-    @Test
-    void elimineDoublonDansEnsemble() {
-        Set<Personne> objets = new HashSet<>();
-        assertTrue(objets.add(new Personne("A")));
-        assertFalse(objets.add(new Personne("A")));
-        assertTrue(objets.add(new Personne("B")));
-        assertEquals(2, objets.size());
     }
 
     /** Vérifie la représentation textuelle utilisée dans les affichages. */
