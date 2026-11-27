@@ -1,8 +1,8 @@
 package modele;
 
 // Imports
-import java.util.HashSet;
-import java.util.LinkedHashMap;
+import java.util.HashSet; // permet de stocker des éléments sans doublons
+import java.util.LinkedHashMap; // permet de conserver l'ordre d'insertion des éléments dans la Map
 import java.util.Map;
 import java.util.Set;
 
