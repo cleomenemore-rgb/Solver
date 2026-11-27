@@ -4,12 +4,6 @@ Le projet est découpé en cinq packages. Chaque package a un rôle précis et l
 dépendances vont toujours dans le même sens : les interfaces (console et Swing) utilisent
 les services, qui utilisent le modèle.
 
-```text
-app  ->  ui (console + ui.graphique)  ->  service  ->  modele
-                      |                      |
-                      +------> algorithme ---+
-```
-
 Le schéma `Architecture_Partie1.drawio` reprend cette organisation sur trois pages :
 le modèle, la résolution (solveur, calcul et session), puis les deux interfaces.
 
