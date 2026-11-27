@@ -1,12 +1,14 @@
 package ui;
 
-// Imports
+// Imports Java
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+
+// Imports internes
 import algorithme.SolveurAffectation;
 import service.SessionAffectation;
 import service.BilanEchange;
