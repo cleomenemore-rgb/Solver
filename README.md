@@ -128,6 +128,4 @@ Le dossier `docs` contient :
 - une présentation de l'architecture (`ARCHITECTURE.md`) ;
 - un schéma UML (`Architecture_Partie1.drawio`) ;
 - une analyse de la complexité de l'algorithme (`COMPLEXITE.md`) ;
-- un déroulé de démonstration (`DEMONSTRATION.md`).
-
-Le dossier `exemples` contient les saisies des deux scénarios de démonstration.
+- une démonstration avait été préparée pour présenter la première partie du projet à l'oral (`DEMONSTRATION.md`), avec les deux exemples de saisie disponibles dans le dossier `exemples`.
