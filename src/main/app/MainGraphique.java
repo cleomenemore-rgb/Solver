@@ -1,15 +1,17 @@
 package app;
 
-// Imports
-import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+// Imports Java
+import java.awt.Dimension; // permet de définir les dimensions d'un composant graphique
+import java.awt.GraphicsEnvironment; // permet de vérifier si un environnement graphique est disponible
+import javax.swing.JFrame; // permet de créer une fenêtre principale de l'application.
+import javax.swing.SwingUtilities; // permet de lancer les opérations graphiques sur le bon thread
+
+// Imports internes
 import algorithme.SolveurNaif;
 import service.CalculateurJalousie;
 import ui.graphique.PanneauApplication;
 
-/** Lance la fenêtre Swing sans dépendance graphique externe. */
+// Lance la fenêtre Swing sans dépendance graphique externe
 public final class MainGraphique {
 
     private MainGraphique() { // empêche l'instanciation du point d'entrée
