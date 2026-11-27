@@ -76,7 +76,7 @@ public final class PanneauApplication extends JPanel {
     /**
      * Construit le panneau avec ses services, sans créer de fenêtre.
      * @param solveur : stratégie de résolution non nulle
-     * @param : calculateur service non nul
+     * @param calculateur : service non nul
      * @throws IllegalArgumentException si une dépendance est nulle
      */
     public PanneauApplication(SolveurAffectation solveur, CalculateurJalousie calculateur) {
