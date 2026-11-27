@@ -109,6 +109,12 @@ Ils vérifient les classes du modèle, le solveur, le calcul de jalousie,
 la session d'échanges et les parcours de la console. La fenêtre Swing n'a pas de test
 automatique : elle se vérifie à la main en lançant `MainGraphique`.
 
+## NB : ajouts aux menus de l'énoncé
+Un quatrième choix complète les menus prévus dans l’énoncé : consulter le 
+récapitulatif du groupe pendant la configuration, ou annuler le dernier 
+échange pendant l’affectation. Ces ajouts facilitent la vérification 
+des saisies et l’essai de différentes répartitions.
+
 ## Limites
 
 - Les données ne sont pas sauvegardées : tout reste en mémoire pendant la session.
