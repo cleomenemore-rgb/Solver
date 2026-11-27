@@ -19,7 +19,7 @@ rejouer sans rien saisir :
 java -cp target/voyage-chambres-0.6.0.jar app.Main < exemples/demo-sujet.txt
 ```
 
-## Scénario principal (environ cinq minutes)
+## Scénario principal
 
 C'est le scénario de `exemples/demo-sujet.txt`.
 
@@ -49,8 +49,7 @@ D:4
 8. Choisir 3 pour quitter.
 
 Cet exemple montre que le solveur est rapide mais ne cherche pas le minimum de jaloux : un
-échange à la main a amélioré le résultat. Le tableau de disponibilité et la borne de 351
-vérifications pour 26 personnes sont expliqués dans `COMPLEXITE.md`.
+échange à la main a amélioré le résultat.
 
 ## Explications et annulation
 
