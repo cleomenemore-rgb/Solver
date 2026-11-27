@@ -1,13 +1,15 @@
 package ui;
 
-// Imports
+// Import Java
 import java.util.Set;
+
+// Imports internes
 import modele.Groupe;
 import modele.Personne;
 import service.BilanEchange;
 import service.SessionAffectation;
 
-/** Présentation textuelle commune aux deux interfaces, sans modifier le modèle. */
+// Présentation textuelle commune aux deux interfaces, sans modifier le modèle.
 
 public final class PresentationGroupe {
 
