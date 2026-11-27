@@ -1,15 +1,17 @@
 package app;
 
-// Import
+// Imports Java
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.nio.charset.Charset;
+import java.io.PrintWriter; // permet d'écrire du texte dans un flux de sortie
+import java.nio.charset.Charset; // permet de gérer l'encodage des caractères utilisés pour lire ou écrire du texte.
+
+// Imports internes
 import algorithme.SolveurNaif;
 import service.CalculateurJalousie;
 import ui.InterfaceConsole;
 
-/** Point d'entrée de la partie 1 : assemble les services et lance la console. */
+// Point d'entrée de la partie 1 : assemble les services et lance la console
 
 public final class Main {
 
