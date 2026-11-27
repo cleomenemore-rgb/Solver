@@ -53,7 +53,7 @@ Cet exemple montre que le solveur est rapide mais ne cherche pas le minimum de j
 
 ## Explications et annulation
 
-Le fichier `exemples/demo-lot6.txt` montre un deuxième parcours avec 2 personnes : récapitulatif
+Le fichier `exemples/demo-echanges-annulation.txt` montre un deuxième parcours avec 2 personnes : récapitulatif
 du groupe, échange de A et B, explications de jalousie, échange refusé (`A Z`) puis annulation du
 dernier échange. La même démonstration se fait à la main dans la fenêtre Swing avec les boutons
 « Échanger » et « Annuler le dernier échange ».
