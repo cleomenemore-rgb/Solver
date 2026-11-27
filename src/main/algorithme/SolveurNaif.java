@@ -1,6 +1,6 @@
 package algorithme;
 
-import java.util.LinkedHashMap;
+import java.util.LinkedHashMap; // // permet de conserver l'ordre d'insertion des éléments dans la Map.
 import java.util.Map;
 import modele.Affectation;
 import modele.Chambre;
