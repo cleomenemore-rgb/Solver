@@ -1,8 +1,8 @@
 package integration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*; // permet d'effectuer des vérifications dans les tests (égalité, nullité, conditions, etc.)
 import java.io.*;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test; // permet de définir et d'exécuter des tests unitaires avec JUnit
 import algorithme.SolveurNaif;
 import service.CalculateurJalousie;
 import ui.InterfaceConsole;
