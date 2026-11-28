@@ -126,6 +126,5 @@ des saisies et l’essai de différentes répartitions.
 
 Le dossier `docs` contient :
 - une présentation de l'architecture (`ARCHITECTURE.md`) ;
-- un schéma UML (`Architecture_Partie1.drawio`) ;
 - une analyse de la complexité de l'algorithme (`COMPLEXITE.md`) ;
 - une démonstration avait été préparée pour présenter la première partie du projet à l'oral (`DEMONSTRATION.md`), avec les deux exemples de saisie disponibles dans le dossier `exemples`.
