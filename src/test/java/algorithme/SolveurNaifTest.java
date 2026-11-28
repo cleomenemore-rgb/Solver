@@ -1,10 +1,10 @@
 package algorithme;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*; // permet d'effectuer des vérifications dans les tests (égalité, nullité, conditions, etc.)
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.Test;
-import modele.*;
+import org.junit.jupiter.api.Test; // permet de définir et d'exécuter des tests unitaires avec JUnit
+import modele.*; // permet d'importer les classes du package modele
 
 /** Vérifie les choix gloutons, les validations et l'absence d'état partagé. */
 class SolveurNaifTest {
