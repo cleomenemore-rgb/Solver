@@ -50,9 +50,9 @@ class PersonneTest {
     }
 
     /** Refuse les noms absents ou uniquement composés de blancs. */
-    @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = {" ", "   ", "\t", "\n", "\u2003"})
+    @ParameterizedTest // permet d'exécuter un même test avec plusieurs valeurs
+    @NullAndEmptySource // fournit automatiquement les valeurs null et chaîne vide
+    @ValueSource(strings = {" ", "   ", "\t", "\n", "\u2003"}) // permet de définir une liste de valeurs à tester
     void refuseNomInvalide(String nom) {
         assertThrows(IllegalArgumentException.class, () -> new Personne(nom));
     }
